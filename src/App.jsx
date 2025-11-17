@@ -1,26 +1,40 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Upload from './components/Upload'
+import Results from './components/Results'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [result, setResult] = useState(null)
+
+  useEffect(() => {
+    document.title = 'PaperPolish — Improve Research Papers'
+  }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      <header className="max-w-4xl mx-auto px-6 pt-16 pb-8">
+        <div className="flex items-center justify-between">
+          <div className="text-2xl font-bold tracking-tight">PaperPolish</div>
+          <div className="text-slate-300 text-sm">Private • Secure • Simple</div>
         </div>
-      </div>
+        <h1 className="mt-10 text-4xl md:text-5xl font-semibold leading-tight">
+          Upload your paper. Get clear, actionable suggestions.
+        </h1>
+        <p className="mt-4 text-slate-300 max-w-2xl">
+          A clean, high‑tech assistant that reviews structure, clarity, and completeness — designed for busy researchers.
+        </p>
+      </header>
+
+      <main className="max-w-4xl mx-auto px-6 pb-20 grid md:grid-cols-2 gap-6 items-start">
+        <div className="bg-white/10 rounded-2xl p-6 shadow-xl ring-1 ring-white/10">
+          <div className="text-slate-200 mb-4 font-medium">Upload your paper</div>
+          <Upload onAnalyzed={setResult} />
+        </div>
+        <Results result={result} />
+      </main>
+
+      <footer className="max-w-4xl mx-auto px-6 pb-10 text-slate-400 text-sm">
+        No data is shared externally. You can remove your analysis anytime.
+      </footer>
     </div>
   )
 }
